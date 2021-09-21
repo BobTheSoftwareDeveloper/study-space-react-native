@@ -45,6 +45,7 @@
     "react/destructuring-assignment": "off",
     "@typescript-eslint/no-namespace": "off",
     "react/jsx-curly-brace-presence": "off",
-    "no-else-return": "off"
+    "no-else-return": "off",
+    "prefer-destructuring": "off"
   }
 }
