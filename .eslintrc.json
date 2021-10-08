@@ -46,6 +46,7 @@
     "@typescript-eslint/no-namespace": "off",
     "react/jsx-curly-brace-presence": "off",
     "no-else-return": "off",
-    "prefer-destructuring": "off"
+    "prefer-destructuring": "off",
+    "react/jsx-filename-extension": "off"
   }
 }

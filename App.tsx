@@ -1,10 +1,23 @@
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
+import { Theme } from 'react-native-paper/lib/typescript/types'
 
 import useCachedResources from './hooks/useCachedResources'
 import useColorScheme from './hooks/useColorScheme'
-import Navigation from './navigation'
+// import Navigation from './navigation'
+import Navigation from './navigation/navigator'
+
+const theme: Theme = {
+  ...DefaultTheme,
+  dark: true,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#6473FD',
+    accent: '#FEE1D8',
+  },
+}
 
 export default function App() {
   const isLoadingComplete = useCachedResources()
@@ -15,8 +28,10 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
-        <StatusBar />
+        <PaperProvider theme={theme}>
+          <Navigation colorScheme={colorScheme} />
+          <StatusBar />
+        </PaperProvider>
       </SafeAreaProvider>
     )
   }
