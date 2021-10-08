@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Title, Headline, Paragraph, TextInput, Button } from 'react-native-paper'
 import DefaultPage from '../components/DefaultPage'
+import DefaultTextInput from '../components/DefaultTextInput'
 
 const styles = StyleSheet.create({
   headerText: {
@@ -33,8 +34,13 @@ const HomeScreen = () => {
     <DefaultPage>
       <Headline style={styles.headerText}>Welcome to the Study Space App!</Headline>
       <Paragraph style={styles.signInText}>Please sign in below</Paragraph>
-      <TextInput style={styles.textInput} mode="outlined" label="Email" right={<TextInput.Icon name="account" />} />
-      <TextInput
+      <DefaultTextInput
+        style={styles.textInput}
+        mode="outlined"
+        label="Email"
+        right={<TextInput.Icon name="account" />}
+      />
+      <DefaultTextInput
         style={styles.textInput}
         mode="outlined"
         label="Password"
