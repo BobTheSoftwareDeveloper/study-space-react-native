@@ -7,6 +7,7 @@ import DefaultPage from '../components/DefaultPage'
 import DefaultTextInput from '../components/DefaultTextInput'
 import { login } from '../view-model/userAuth'
 import { axiosInstance } from '../utils/axios'
+import TopAppBar from '../components/TopAppBar'
 
 const styles = StyleSheet.create({
   headerText: {
@@ -34,73 +35,21 @@ const styles = StyleSheet.create({
   },
 })
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Home'>
+type Props = NativeStackScreenProps<RootStackParamList, 'HomePage'>
 
-const HomeScreen = ({ navigation, route }: Props) => {
+const HomePage = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleLogin = async () => {
-    try {
-      axiosInstance.get('/')
-      await login(email, password)
-      alert('Login successful!')
-    } catch (err) {
-      const error = err as Error
-      alert(`Login failed: ${error.message}`)
-    }
-  }
-
   return (
-    <DefaultPage>
-      <Headline style={styles.headerText}>Welcome to the Study Space App!</Headline>
-      <Paragraph style={styles.signInText}>Please sign in below</Paragraph>
-      <DefaultTextInput
-        style={styles.textInput}
-        mode="outlined"
-        label="Email"
-        value={email}
-        onChangeText={(text) => setEmail(text)}
-        right={<TextInput.Icon name="account" />}
-      />
-      <DefaultTextInput
-        style={styles.textInput}
-        mode="outlined"
-        label="Password"
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-        secureTextEntry={!showPassword}
-        right={
-          <TextInput.Icon
-            name={showPassword ? 'eye-off' : 'eye'}
-            onPress={() => {
-              setShowPassword((old) => !old)
-            }}
-          />
-        }
-      />
-      <Paragraph
-        style={styles.forgetPasswordText}
-        onPress={() => {
-          alert('Forgot!')
-        }}
-      >
-        Forgot Password
-      </Paragraph>
-      <Button mode="contained" style={styles.signInButton} onPress={() => handleLogin()}>
-        Sign In
-      </Button>
-      <Paragraph
-        style={styles.signUpText}
-        onPress={() => {
-          navigation.navigate('SignUp')
-        }}
-      >
-        {`Don't have an account? Sign Up!`}
-      </Paragraph>
-    </DefaultPage>
+    <>
+      <TopAppBar title="Home Page" />
+      <DefaultPage>
+        <Headline style={styles.headerText}>Welcome to the Study Space App!</Headline>
+      </DefaultPage>
+    </>
   )
 }
 
-export default HomeScreen
+export default HomePage

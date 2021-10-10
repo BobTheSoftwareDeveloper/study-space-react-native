@@ -2,10 +2,11 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React, { useState } from 'react'
 import { StyleSheet } from 'react-native'
 import { Headline, Paragraph, TextInput, Button } from 'react-native-paper'
+import { RootStackParamList } from '../navigation/navigator'
 import DefaultPage from '../components/DefaultPage'
 import DefaultTextInput from '../components/DefaultTextInput'
-import { RootStackParamList } from '../navigation/navigator'
-import { signUp } from '../view-model/userAuth'
+import { login } from '../view-model/userAuth'
+import { axiosInstance } from '../utils/axios'
 
 const styles = StyleSheet.create({
   headerText: {
@@ -20,8 +21,8 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: 'rgba(255, 255, 255, 0.39)',
   },
-  signUpButton: {
-    marginTop: 30,
+  signInButton: {
+    marginTop: 20,
     width: '100%',
   },
   forgetPasswordText: {
@@ -35,40 +36,26 @@ const styles = StyleSheet.create({
 
 type Props = NativeStackScreenProps<RootStackParamList, 'LandingPage'>
 
-const SignUpScreen = ({ navigation, route }: Props) => {
+const LandingScreen = ({ navigation, route }: Props) => {
   const [showPassword, setShowPassword] = useState(false)
-  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [passwordConfirmation, setPasswordConfirmation] = useState('')
 
-  const handleSignUp = async () => {
+  const handleLogin = async () => {
     try {
-      // Check if the password matches
-      if (password.trim() === '' || password !== passwordConfirmation) {
-        alert('Password confirmation does not match. Please try again.')
-        return
-      }
-
-      await signUp(name, email, password)
-      alert('Sign up successful!')
+      axiosInstance.get('/')
+      await login(email, password)
+      alert('Login successful!')
     } catch (err) {
       const error = err as Error
-      alert(`Sign up failed: ${error.message}`)
+      alert(`Login failed: ${error.message}`)
     }
   }
 
   return (
     <DefaultPage>
-      <Headline style={styles.headerText}>Sign Up</Headline>
-      <DefaultTextInput
-        style={styles.textInput}
-        mode="outlined"
-        label="Name"
-        value={name}
-        onChangeText={(text) => setName(text)}
-        right={<TextInput.Icon name="account-circle" />}
-      />
+      <Headline style={styles.headerText}>Welcome to the Study Space App!</Headline>
+      <Paragraph style={styles.signInText}>Please sign in below</Paragraph>
       <DefaultTextInput
         style={styles.textInput}
         mode="outlined"
@@ -93,27 +80,27 @@ const SignUpScreen = ({ navigation, route }: Props) => {
           />
         }
       />
-      <DefaultTextInput
-        style={styles.textInput}
-        mode="outlined"
-        label="Password Confirm"
-        value={passwordConfirmation}
-        onChangeText={(text) => setPasswordConfirmation(text)}
-        secureTextEntry={!showPassword}
-        right={
-          <TextInput.Icon
-            name={showPassword ? 'eye-off' : 'eye'}
-            onPress={() => {
-              setShowPassword((old) => !old)
-            }}
-          />
-        }
-      />
-      <Button mode="contained" style={styles.signUpButton} onPress={() => handleSignUp()}>
-        Create Account
+      <Paragraph
+        style={styles.forgetPasswordText}
+        onPress={() => {
+          alert('Forgot!')
+        }}
+      >
+        Forgot Password
+      </Paragraph>
+      <Button mode="contained" style={styles.signInButton} onPress={() => handleLogin()}>
+        Sign In
       </Button>
+      <Paragraph
+        style={styles.signUpText}
+        onPress={() => {
+          navigation.navigate('SignUpPage')
+        }}
+      >
+        {`Don't have an account? Sign Up!`}
+      </Paragraph>
     </DefaultPage>
   )
 }
 
-export default SignUpScreen
+export default LandingScreen
