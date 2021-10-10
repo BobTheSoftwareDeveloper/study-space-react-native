@@ -42,10 +42,11 @@ const HomeScreen = ({ navigation, route }: Props) => {
 
   const handleLogin = async () => {
     try {
-      const userCred = await login(email, password)
-      console.log('userCred', userCred)
+      await login(email, password)
+      alert('Login successful!')
     } catch (err) {
-      console.error('error:', err)
+      const error = err as Error
+      alert(`Login failed: ${error.message}`)
     }
   }
 
