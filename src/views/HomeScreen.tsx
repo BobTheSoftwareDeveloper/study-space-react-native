@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native'
 import { Headline, Paragraph, TextInput, Button } from 'react-native-paper'
 import DefaultPage from '../components/DefaultPage'
 import DefaultTextInput from '../components/DefaultTextInput'
+import { login } from '../view-model/login'
 
 const styles = StyleSheet.create({
   headerText: {
@@ -32,8 +33,17 @@ const styles = StyleSheet.create({
 
 const HomeScreen = () => {
   const [showPassword, setShowPassword] = useState(false)
-  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const handleLogin = async () => {
+    try {
+      const userCred = await login(email, password)
+      console.log('userCred', userCred)
+    } catch (err) {
+      console.error('error:', err)
+    }
+  }
 
   return (
     <DefaultPage>
@@ -43,8 +53,8 @@ const HomeScreen = () => {
         style={styles.textInput}
         mode="outlined"
         label="Email"
-        value={username}
-        onChangeText={(text) => setUsername(text)}
+        value={email}
+        onChangeText={(text) => setEmail(text)}
         right={<TextInput.Icon name="account" />}
       />
       <DefaultTextInput
@@ -71,7 +81,7 @@ const HomeScreen = () => {
       >
         Forgot Password
       </Paragraph>
-      <Button mode="contained" style={styles.signInButton}>
+      <Button mode="contained" style={styles.signInButton} onPress={() => handleLogin()}>
         Sign In
       </Button>
       <Paragraph
