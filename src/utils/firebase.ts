@@ -13,7 +13,7 @@ const firebaseConfig = {
 
 /*
 Default account login:
-Email: bob.liou.engineer@gmail.com
+Email: bob@example.com
 Password: bob123test
 */
 
