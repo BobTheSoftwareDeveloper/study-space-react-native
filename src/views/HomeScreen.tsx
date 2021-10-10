@@ -1,52 +1,72 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import React, { useState } from 'react'
-import { StyleSheet } from 'react-native'
-import { Headline, Paragraph, TextInput, Button } from 'react-native-paper'
+import React, { useState, useEffect } from 'react'
+import { Alert, StyleSheet, ScrollView } from 'react-native'
+import { Headline, Paragraph, TextInput, Button, Card } from 'react-native-paper'
 import { RootStackParamList } from '../navigation/navigator'
 import DefaultPage from '../components/DefaultPage'
 import DefaultTextInput from '../components/DefaultTextInput'
 import { login } from '../view-model/userAuth'
 import { axiosInstance } from '../utils/axios'
 import TopAppBar from '../components/TopAppBar'
+import { StudySpaceType } from '../types/apiReponse'
+import CardItem from '../components/CardItem'
 
 const styles = StyleSheet.create({
-  headerText: {
-    marginTop: 40,
+  content: {
+    display: 'flex',
+    flexDirection: 'row',
+    flex: 1,
+    flexWrap: 'wrap',
   },
-  signInText: {
-    marginTop: 20,
+  card: {
+    margin: 4,
   },
-  textInput: {
-    marginTop: 20,
-    alignSelf: 'baseline',
-    width: '100%',
-    backgroundColor: 'rgba(255, 255, 255, 0.39)',
-  },
-  signInButton: {
-    marginTop: 20,
-    width: '100%',
-  },
-  forgetPasswordText: {
-    marginTop: 10,
-    alignSelf: 'flex-end',
-  },
-  signUpText: {
-    marginTop: 40,
+  preference: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 12,
+    paddingHorizontal: 8,
   },
 })
 
 type Props = NativeStackScreenProps<RootStackParamList, 'HomePage'>
 
 const HomePage = () => {
-  const [showPassword, setShowPassword] = useState(false)
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [studySpaces, setStudySpaces] = useState<StudySpaceType[]>([])
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const data = (await axiosInstance.get('/study-space')).data
+        setStudySpaces(data)
+      } catch (err) {
+        const error = err as Error
+        Alert.alert(error.message)
+      }
+    }
+    getData()
+  }, [])
 
   return (
     <>
       <TopAppBar title="Home Page" />
-      <DefaultPage>
-        <Headline style={styles.headerText}>Welcome to the Study Space App!</Headline>
+      <DefaultPage
+        styles={{
+          flexDirection: 'row',
+          alignItems: 'flex-start',
+          padding: 0,
+          flexWrap: 'wrap',
+        }}
+      >
+        <ScrollView contentContainerStyle={styles.content}>
+          {studySpaces.map((studySpaceObj) => (
+            // <Card mode="outlined" key={studySpaceObj._id} style={styles.card}>
+            //   <Card.Title title={studySpaceObj.name} />
+            // </Card>
+            <CardItem key={studySpaceObj._id} data={studySpaceObj} />
+          ))}
+        </ScrollView>
       </DefaultPage>
     </>
   )

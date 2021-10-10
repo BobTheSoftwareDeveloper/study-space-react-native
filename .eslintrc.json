@@ -43,6 +43,7 @@
     "no-alert": "off",
     "no-console": "off",
     "@typescript-eslint/ban-ts-comment": "off",
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "no-underscore-dangle": "off"
   }
 }

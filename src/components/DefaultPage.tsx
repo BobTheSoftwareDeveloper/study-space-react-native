@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 
-const styles = StyleSheet.create({
+const outterStyles = StyleSheet.create({
   view: {
     flex: 1,
     alignItems: 'center',
@@ -11,6 +11,15 @@ const styles = StyleSheet.create({
   },
 })
 
-const DefaultPage: React.FC = ({ children }) => <View style={styles.view}>{children}</View>
+type DefaultPageType = React.ComponentProps<typeof View>
+
+interface DefaultPageProps {
+  // eslint-disable-next-line
+  styles?: any
+}
+
+const DefaultPage: React.FC<DefaultPageProps> = ({ children, styles }) => (
+  <View style={[outterStyles.view, styles ?? {}]}>{children}</View>
+)
 
 export default DefaultPage
