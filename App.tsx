@@ -9,6 +9,8 @@ import useColorScheme from './src/hooks/useColorScheme'
 // import Navigation from './navigation'
 import Navigation from './src/navigation/navigator'
 
+import { AuthProvider } from './src/contexts/AuthContext'
+
 const theme: Theme = {
   ...DefaultTheme,
   dark: true,
@@ -29,8 +31,10 @@ export default function App() {
     return (
       <SafeAreaProvider>
         <PaperProvider theme={theme}>
-          <Navigation colorScheme={colorScheme} />
-          <StatusBar />
+          <AuthProvider>
+            <Navigation colorScheme={colorScheme} />
+            <StatusBar />
+          </AuthProvider>
         </PaperProvider>
       </SafeAreaProvider>
     )
