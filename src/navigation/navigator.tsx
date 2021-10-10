@@ -3,8 +3,14 @@ import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { ColorSchemeName } from 'react-native'
 import HomeScreen from '../views/HomeScreen'
+import SignUpScreen from '../views/SignUpScreen'
 
-const Stack = createNativeStackNavigator()
+export type RootStackParamList = {
+  Home: undefined
+  SignUp: undefined
+}
+
+const Stack = createNativeStackNavigator<RootStackParamList>()
 
 const Navigation = ({ colorScheme }: { colorScheme: ColorSchemeName }) => (
   <NavigationContainer theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
@@ -12,6 +18,13 @@ const Navigation = ({ colorScheme }: { colorScheme: ColorSchemeName }) => (
       <Stack.Screen
         name="Home"
         component={HomeScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SignUp"
+        component={SignUpScreen}
         options={{
           headerShown: false,
         }}

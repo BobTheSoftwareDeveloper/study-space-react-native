@@ -1,8 +1,6 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React, { useState } from 'react'
 import { StyleSheet } from 'react-native'
 import { Headline, Paragraph, TextInput, Button } from 'react-native-paper'
-import { RootStackParamList } from '../navigation/navigator'
 import DefaultPage from '../components/DefaultPage'
 import DefaultTextInput from '../components/DefaultTextInput'
 import { login } from '../view-model/userAuth'
@@ -33,9 +31,7 @@ const styles = StyleSheet.create({
   },
 })
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Home'>
-
-const HomeScreen = ({ navigation, route }: Props) => {
+const SignUpScreen = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -51,8 +47,7 @@ const HomeScreen = ({ navigation, route }: Props) => {
 
   return (
     <DefaultPage>
-      <Headline style={styles.headerText}>Welcome to the Study Space App!</Headline>
-      <Paragraph style={styles.signInText}>Please sign in below</Paragraph>
+      <Headline style={styles.headerText}>Sign Up</Headline>
       <DefaultTextInput
         style={styles.textInput}
         mode="outlined"
@@ -91,7 +86,7 @@ const HomeScreen = ({ navigation, route }: Props) => {
       <Paragraph
         style={styles.signUpText}
         onPress={() => {
-          navigation.navigate('SignUp')
+          alert('Forgot')
         }}
       >
         {`Don't have an account? Sign Up!`}
@@ -100,4 +95,4 @@ const HomeScreen = ({ navigation, route }: Props) => {
   )
 }
 
-export default HomeScreen
+export default SignUpScreen
