@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
-import { Title, Headline, Paragraph, TextInput, Button } from 'react-native-paper'
+import { StyleSheet } from 'react-native'
+import { Headline, Paragraph, TextInput, Button } from 'react-native-paper'
 import DefaultPage from '../components/DefaultPage'
 import DefaultTextInput from '../components/DefaultTextInput'
 

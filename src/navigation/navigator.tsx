@@ -2,7 +2,7 @@ import React from 'react'
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { ColorSchemeName } from 'react-native'
-import HomeScreen from '../screens/HomeScreen'
+import HomeScreen from '../views/HomeScreen'
 
 const Stack = createNativeStackNavigator()
 

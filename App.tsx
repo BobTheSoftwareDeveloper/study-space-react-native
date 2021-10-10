@@ -4,10 +4,10 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
 import { Theme } from 'react-native-paper/lib/typescript/types'
 
-import useCachedResources from './hooks/useCachedResources'
-import useColorScheme from './hooks/useColorScheme'
+import useCachedResources from './src/hooks/useCachedResources'
+import useColorScheme from './src/hooks/useColorScheme'
 // import Navigation from './navigation'
-import Navigation from './navigation/navigator'
+import Navigation from './src/navigation/navigator'
 
 const theme: Theme = {
   ...DefaultTheme,
