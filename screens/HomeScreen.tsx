@@ -66,7 +66,7 @@ const HomeScreen = () => {
       <Paragraph
         style={styles.forgetPasswordText}
         onPress={() => {
-          alert('Forgot')
+          alert('Forgot!')
         }}
       >
         Forgot Password
