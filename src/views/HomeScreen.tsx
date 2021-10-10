@@ -6,6 +6,7 @@ import { RootStackParamList } from '../navigation/navigator'
 import DefaultPage from '../components/DefaultPage'
 import DefaultTextInput from '../components/DefaultTextInput'
 import { login } from '../view-model/userAuth'
+import { axiosInstance } from '../utils/axios'
 
 const styles = StyleSheet.create({
   headerText: {
@@ -42,6 +43,7 @@ const HomeScreen = ({ navigation, route }: Props) => {
 
   const handleLogin = async () => {
     try {
+      axiosInstance.get('/')
       await login(email, password)
       alert('Login successful!')
     } catch (err) {

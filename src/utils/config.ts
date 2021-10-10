@@ -1,12 +1,7 @@
-import dotenv from 'dotenv'
-import path from 'path'
-
-dotenv.config({
-  path: path.resolve(__dirname, '../../.env'),
-})
+import { API_URL } from '@env'
 
 const config = {
-  API_URL: process.env.API_URL,
+  API_URL,
 }
 
 export { config }
