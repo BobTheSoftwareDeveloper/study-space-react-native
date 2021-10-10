@@ -10,6 +10,14 @@ const styles = StyleSheet.create({
     flexBasis: screenWidth / 2,
     // backgroundColor: 'white',
     flexGrow: 0,
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: 20,
+  },
+  image: {
+    height: 100,
+    width: screenWidth / 2 - 20,
+    backgroundColor: 'white',
   },
 })
 
@@ -19,7 +27,9 @@ interface CardItemProps {
 
 const CardItem: React.FC<CardItemProps> = ({ data }) => (
   <View style={styles.card}>
+    <View style={styles.image} />
     <Text>{data.name}</Text>
+    <Text>{data.location.latitude}</Text>
   </View>
 )
 
