@@ -1,7 +1,8 @@
 import React from 'react'
-import { TextInputProps } from 'react-native'
 import { TextInput } from 'react-native-paper'
 
-const DefaultTextInput: React.FC<TextInputProps | any> = (props) => <TextInput theme={{ roundness: 15 }} {...props} />
+type TextInputProps = React.ComponentProps<typeof TextInput>
+
+const DefaultTextInput: React.FC<TextInputProps> = (props) => <TextInput theme={{ roundness: 15 }} {...props} />
 
 export default DefaultTextInput

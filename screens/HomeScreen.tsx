@@ -25,10 +25,15 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignSelf: 'flex-end',
   },
+  signUpText: {
+    marginTop: 40,
+  },
 })
 
 const HomeScreen = () => {
   const [showPassword, setShowPassword] = useState(false)
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
   return (
     <DefaultPage>
@@ -38,16 +43,20 @@ const HomeScreen = () => {
         style={styles.textInput}
         mode="outlined"
         label="Email"
+        value={username}
+        onChangeText={(text) => setUsername(text)}
         right={<TextInput.Icon name="account" />}
       />
       <DefaultTextInput
         style={styles.textInput}
         mode="outlined"
         label="Password"
-        secureTextEntry={showPassword}
+        value={password}
+        onChangeText={(text) => setPassword(text)}
+        secureTextEntry={!showPassword}
         right={
           <TextInput.Icon
-            name={showPassword ? 'eye' : 'eye-off'}
+            name={showPassword ? 'eye-off' : 'eye'}
             onPress={() => {
               setShowPassword((old) => !old)
             }}
@@ -65,6 +74,14 @@ const HomeScreen = () => {
       <Button mode="contained" style={styles.signInButton}>
         Sign In
       </Button>
+      <Paragraph
+        style={styles.signUpText}
+        onPress={() => {
+          alert('Forgot')
+        }}
+      >
+        {`Don't have an account? Sign Up!`}
+      </Paragraph>
     </DefaultPage>
   )
 }
