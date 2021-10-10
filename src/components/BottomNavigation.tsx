@@ -18,12 +18,12 @@ const BottomNavigation: React.FC<Props> = ({ navigation }) => {
     {
       key: 'search',
       title: 'Search',
-      icon: 'home',
+      icon: 'magnify',
     },
     {
       key: 'profile',
       title: 'Profile',
-      icon: 'home',
+      icon: 'account-outline',
     },
   ])
 
