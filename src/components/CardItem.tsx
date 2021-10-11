@@ -9,7 +9,7 @@ const screenWidth = Dimensions.get('window').width
 const styles = StyleSheet.create({
   card: {
     flex: 1,
-    height: 150,
+    height: 180,
     flexBasis: screenWidth / 2,
     // backgroundColor: 'white',
     flexGrow: 0,
@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
   titleText: {
     fontWeight: 'bold',
     fontSize: 18,
+    marginTop: 5,
   },
 })
 
@@ -43,12 +44,18 @@ const CardItem: React.FC<CardItemProps> = ({ data }) => {
   return (
     <View style={styles.card}>
       {/* <View style={styles.image} /> */}
-      <Image
-        style={styles.image}
-        source={{
-          uri: firstImageUrl,
+      <Pressable
+        onPress={() => {
+          Alert.alert(`${data.name} is pressed.`)
         }}
-      />
+      >
+        <Image
+          style={styles.image}
+          source={{
+            uri: firstImageUrl,
+          }}
+        />
+      </Pressable>
       <Text style={styles.titleText}>{data.name}</Text>
       <Text style={{ color: 'black' }}>
         {`Noise level: `}
@@ -61,6 +68,7 @@ const CardItem: React.FC<CardItemProps> = ({ data }) => {
         </Text>
         {` dBA`}
       </Text>
+      <Text>{`Occupancy: ${data.occupancyLevel} / ${data.maxOccupancyLevel}`}</Text>
     </View>
   )
 }
