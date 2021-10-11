@@ -16,3 +16,4 @@ web-build/
 
 # Jest Snaphost files
 *.snap
+__snapshots__
