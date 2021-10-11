@@ -30,9 +30,9 @@ const styles = StyleSheet.create({
   },
 })
 
-type Props = NativeStackScreenProps<RootStackParamList, 'HomePage'>
+type Props = NativeStackScreenProps<RootStackParamList>
 
-const HomePage = () => {
+const HomePage: React.FC<Props> = ({ navigation }) => {
   const [studySpaces, setStudySpaces] = useState<StudySpaceType[]>([])
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const HomePage = () => {
             // <Card mode="outlined" key={studySpaceObj._id} style={styles.card}>
             //   <Card.Title title={studySpaceObj.name} />
             // </Card>
-            <CardItem key={studySpaceObj._id} data={studySpaceObj} />
+            <CardItem key={studySpaceObj._id} data={studySpaceObj} navigation={navigation} />
           ))}
         </ScrollView>
       </DefaultPage>

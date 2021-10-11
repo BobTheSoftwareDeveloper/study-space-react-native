@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Alert, Dimensions, Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { StudySpaceType } from '../types/apiReponse'
 import { getNoiseLevelAcceptance } from '../utils/noiseLevel'
+import { AuthContext } from '../contexts/AuthContext'
+import { RootStackParamList } from '../navigation/navigator'
 
 const screenWidth = Dimensions.get('window').width
 
@@ -32,14 +35,17 @@ const styles = StyleSheet.create({
 
 interface CardItemProps {
   data: StudySpaceType
+  navigation: NativeStackNavigationProp<RootStackParamList>
 }
 
 type NoiseLevelColourType = 'red' | 'green'
 
-const CardItem: React.FC<CardItemProps> = ({ data }) => {
+const CardItem: React.FC<CardItemProps> = ({ data, navigation }) => {
   const firstImageUrl = data?.images?.[0] ?? ''
   const noiseLevelColour: NoiseLevelColourType =
     getNoiseLevelAcceptance(data.noiseLevel) === 'acceptable' ? 'green' : 'red'
+
+  const AuthObj = useContext(AuthContext)
 
   return (
     <View style={styles.card}>
@@ -47,6 +53,8 @@ const CardItem: React.FC<CardItemProps> = ({ data }) => {
       <Pressable
         onPress={() => {
           Alert.alert(`${data.name} is pressed.`)
+          AuthObj.setCurrentStudySpace(data)
+          navigation.navigate('StudySpacePage')
         }}
       >
         <Image

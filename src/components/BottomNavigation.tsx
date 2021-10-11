@@ -7,7 +7,7 @@ import { RootStackParamList } from '../navigation/navigator'
 
 type Props = NativeStackScreenProps<RootStackParamList>
 
-const BottomNavigation: React.FC<Props> = ({ navigation }) => {
+const BottomNavigation: React.FC<Props> = ({ navigation, route }) => {
   const [index, setIndex] = useState(0)
   const [routes] = useState([
     {
@@ -37,14 +37,14 @@ const BottomNavigation: React.FC<Props> = ({ navigation }) => {
         routes,
       }}
       onIndexChange={setIndex}
-      renderScene={({ route, jumpTo }) => {
-        switch (route.key) {
+      renderScene={({ route: innerRoute, jumpTo }) => {
+        switch (innerRoute.key) {
           case 'home':
-            return <HomeScreen />
+            return <HomeScreen navigation={navigation} route={route} />
           case 'search':
-            return <HomeScreen />
+            return <HomeScreen navigation={navigation} route={route} />
           case 'profile':
-            return <HomeScreen />
+            return <HomeScreen navigation={navigation} route={route} />
           default:
             return <View />
         }
