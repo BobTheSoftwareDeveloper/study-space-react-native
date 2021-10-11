@@ -52,7 +52,6 @@ const CardItem: React.FC<CardItemProps> = ({ data, navigation }) => {
       {/* <View style={styles.image} /> */}
       <Pressable
         onPress={() => {
-          Alert.alert(`${data.name} is pressed.`)
           AuthObj.setCurrentStudySpace(data)
           navigation.navigate('StudySpacePage')
         }}
