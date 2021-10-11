@@ -29,6 +29,9 @@ const BottomNavigation: React.FC<Props> = ({ navigation }) => {
 
   return (
     <BottomNavigationComponent
+      style={{
+        flex: 1,
+      }}
       navigationState={{
         index,
         routes,

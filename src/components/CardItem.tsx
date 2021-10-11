@@ -1,11 +1,14 @@
 import React from 'react'
-import { Dimensions, StyleSheet, Text, View } from 'react-native'
+import { Alert, Dimensions, Image, Pressable, StyleSheet, Text, View } from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import { StudySpaceType } from '../types/apiReponse'
+import { getNoiseLevelAcceptance } from '../utils/noiseLevel'
 
 const screenWidth = Dimensions.get('window').width
 
 const styles = StyleSheet.create({
   card: {
+    flex: 1,
     height: 150,
     flexBasis: screenWidth / 2,
     // backgroundColor: 'white',
@@ -18,6 +21,11 @@ const styles = StyleSheet.create({
     height: 100,
     width: screenWidth / 2 - 20,
     backgroundColor: 'white',
+    borderRadius: 10,
+  },
+  titleText: {
+    fontWeight: 'bold',
+    fontSize: 18,
   },
 })
 
@@ -25,12 +33,36 @@ interface CardItemProps {
   data: StudySpaceType
 }
 
-const CardItem: React.FC<CardItemProps> = ({ data }) => (
-  <View style={styles.card}>
-    <View style={styles.image} />
-    <Text>{data.name}</Text>
-    <Text>{data.location.latitude}</Text>
-  </View>
-)
+type NoiseLevelColourType = 'red' | 'green'
+
+const CardItem: React.FC<CardItemProps> = ({ data }) => {
+  const firstImageUrl = data?.images?.[0] ?? ''
+  const noiseLevelColour: NoiseLevelColourType =
+    getNoiseLevelAcceptance(data.noiseLevel) === 'acceptable' ? 'green' : 'red'
+
+  return (
+    <View style={styles.card}>
+      {/* <View style={styles.image} /> */}
+      <Image
+        style={styles.image}
+        source={{
+          uri: firstImageUrl,
+        }}
+      />
+      <Text style={styles.titleText}>{data.name}</Text>
+      <Text style={{ color: 'black' }}>
+        {`Noise level: `}
+        <Text
+          style={{
+            color: noiseLevelColour,
+          }}
+        >
+          {data.noiseLevel}
+        </Text>
+        {` dBA`}
+      </Text>
+    </View>
+  )
+}
 
 export default CardItem

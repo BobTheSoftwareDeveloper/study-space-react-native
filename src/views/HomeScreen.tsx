@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
   content: {
     display: 'flex',
     flexDirection: 'row',
-    flex: 1,
     flexWrap: 'wrap',
+    paddingBottom: 40,
   },
   card: {
     margin: 4,
@@ -57,6 +57,7 @@ const HomePage = () => {
           alignItems: 'flex-start',
           padding: 0,
           flexWrap: 'wrap',
+          flex: 1,
         }}
       >
         <ScrollView contentContainerStyle={styles.content}>
