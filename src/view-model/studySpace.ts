@@ -1,9 +1,17 @@
 import React from 'react'
-import { getAllStudySpace as getAllStudySpaceModel } from '../models/studySpace'
+import {
+  getAllStudySpace as getAllStudySpaceModel,
+  getFavouriteStudySpaces as getFavouriteStudySpacesModel,
+} from '../models/studySpace'
 import { StudySpaceType } from '../types/apiReponse'
 
 const getAllStudySpace = async (): Promise<StudySpaceType[]> => {
   const data = await getAllStudySpaceModel()
+  return data
+}
+
+const getFavouriteStudySpaces = async (): Promise<StudySpaceType[]> => {
+  const data = await getFavouriteStudySpacesModel()
   return data
 }
 
@@ -26,4 +34,4 @@ const handleSearchTerm = (
   setStudySpaces(() => filterByStudySpaceName(originalStudySpaces, searchTerm))
 }
 
-export { getAllStudySpace, filterByStudySpaceName, handleSearchTerm }
+export { getAllStudySpace, filterByStudySpaceName, handleSearchTerm, getFavouriteStudySpaces }

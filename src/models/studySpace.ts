@@ -6,4 +6,9 @@ const getAllStudySpace = async (): Promise<StudySpaceType[]> => {
   return data
 }
 
-export { getAllStudySpace }
+const getFavouriteStudySpaces = async (): Promise<StudySpaceType[]> => {
+  const data = (await axiosInstance.get('/user/favourite')).data
+  return data
+}
+
+export { getAllStudySpace, getFavouriteStudySpaces }
