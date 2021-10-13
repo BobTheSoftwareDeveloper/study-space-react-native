@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import { BottomNavigation as BottomNavigationComponent } from 'react-native-paper'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import HomeScreen from '../views/HomeScreen'
+import SearchPage from '../views/SearchPage'
 import { RootStackParamList } from '../navigation/navigator'
 
 type Props = NativeStackScreenProps<RootStackParamList>
@@ -42,7 +43,7 @@ const BottomNavigation: React.FC<Props> = ({ navigation, route }) => {
           case 'home':
             return <HomeScreen navigation={navigation} route={route} />
           case 'search':
-            return <HomeScreen navigation={navigation} route={route} />
+            return <SearchPage navigation={navigation} route={route} />
           case 'profile':
             return <HomeScreen navigation={navigation} route={route} />
           default:

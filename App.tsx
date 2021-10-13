@@ -6,7 +6,6 @@ import { Theme } from 'react-native-paper/lib/typescript/types'
 
 import useCachedResources from './src/hooks/useCachedResources'
 import useColorScheme from './src/hooks/useColorScheme'
-// import Navigation from './navigation'
 import Navigation from './src/navigation/navigator'
 
 import { AuthProvider } from './src/contexts/AuthContext'
