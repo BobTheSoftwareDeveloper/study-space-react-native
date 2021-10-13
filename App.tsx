@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar'
-import React from 'react'
+import React, { useContext } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
 import { Theme } from 'react-native-paper/lib/typescript/types'
@@ -8,7 +8,7 @@ import useCachedResources from './src/hooks/useCachedResources'
 import useColorScheme from './src/hooks/useColorScheme'
 import Navigation from './src/navigation/navigator'
 
-import { AuthProvider } from './src/contexts/AuthContext'
+import { AuthProvider, AuthContext } from './src/contexts/AuthContext'
 
 const theme: Theme = {
   ...DefaultTheme,
@@ -20,22 +20,29 @@ const theme: Theme = {
   },
 }
 
-export default function App() {
+const App = () => {
   const isLoadingComplete = useCachedResources()
   const colorScheme = useColorScheme()
+  const AuthObj = useContext(AuthContext)
 
-  if (!isLoadingComplete) {
+  if (!isLoadingComplete || AuthObj.isLoading) {
     return null
   } else {
     return (
       <SafeAreaProvider>
         <PaperProvider theme={theme}>
-          <AuthProvider>
-            <Navigation colorScheme={colorScheme} />
-            <StatusBar />
-          </AuthProvider>
+          <Navigation colorScheme={colorScheme} />
+          <StatusBar />
         </PaperProvider>
       </SafeAreaProvider>
     )
   }
+}
+
+export default function Index() {
+  return (
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  )
 }
