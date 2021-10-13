@@ -1,15 +1,12 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React, { useState, useEffect } from 'react'
 import { Alert, StyleSheet, ScrollView } from 'react-native'
-import { Headline, Paragraph, TextInput, Button, Card } from 'react-native-paper'
 import { RootStackParamList } from '../navigation/navigator'
 import DefaultPage from '../components/DefaultPage'
-import DefaultTextInput from '../components/DefaultTextInput'
-import { login } from '../view-model/userAuth'
-import { axiosInstance } from '../utils/axios'
 import TopAppBar from '../components/TopAppBar'
 import { StudySpaceType } from '../types/apiReponse'
 import CardItem from '../components/CardItem'
+import { getAllStudySpace } from '../view-model/studySpace'
 
 const styles = StyleSheet.create({
   content: {
@@ -38,7 +35,7 @@ const HomePage: React.FC<Props> = ({ navigation }) => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const data = (await axiosInstance.get('/study-space')).data
+        const data = await getAllStudySpace()
         setStudySpaces(data)
       } catch (err) {
         const error = err as Error
@@ -62,9 +59,6 @@ const HomePage: React.FC<Props> = ({ navigation }) => {
       >
         <ScrollView contentContainerStyle={styles.content}>
           {studySpaces.map((studySpaceObj) => (
-            // <Card mode="outlined" key={studySpaceObj._id} style={styles.card}>
-            //   <Card.Title title={studySpaceObj.name} />
-            // </Card>
             <CardItem key={studySpaceObj._id} data={studySpaceObj} navigation={navigation} />
           ))}
         </ScrollView>
