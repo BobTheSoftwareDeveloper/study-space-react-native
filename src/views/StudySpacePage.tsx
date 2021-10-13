@@ -1,8 +1,10 @@
 import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack'
 import React, { useState, useEffect, useContext } from 'react'
-import { Alert, Dimensions, Image, StyleSheet, Text } from 'react-native'
+import { Alert, Dimensions, Image, ScrollView, StyleSheet, Text } from 'react-native'
 import { Headline, Paragraph, TextInput, Button, Card } from 'react-native-paper'
 import { LineChart } from 'react-native-chart-kit'
+import Moment from 'moment'
+import { extendMoment } from 'moment-range'
 import { RootStackParamList } from '../navigation/navigator'
 import DefaultPage from '../components/DefaultPage'
 import DefaultTextInput from '../components/DefaultTextInput'
@@ -13,7 +15,11 @@ import { StudySpaceType } from '../types/apiReponse'
 import CardItem from '../components/CardItem'
 import { AuthContext } from '../contexts/AuthContext'
 
+// @ts-ignore
+const moment = extendMoment(Moment)
+
 const screenWidth = Dimensions.get('window').width
+const PADDING_SPACE = 40
 
 const styles = StyleSheet.create({
   image: {
@@ -26,79 +32,135 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 16,
   },
+  content: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
 })
 
 interface StudySpacePageProps {
   navigation: NativeStackNavigationProp<RootStackParamList>
 }
 
+const randomNumber = (min: number, max: number) => Math.random() * (max - min + 1) + min
+
 const StudySpacePage: React.FC<StudySpacePageProps> = ({ navigation }) => {
   const AuthObj = useContext(AuthContext)
   const currentStudySpace = AuthObj.currentStudySpace
 
+  const now = moment()
+  const before = moment().subtract(1, 'day')
+  const range = moment.range(before, now)
+  const dateRange = []
+  let counter = 0
+  for (const hour of range.by('hour', { excludeEnd: true })) {
+    if (counter === 0) {
+      dateRange.push(hour.format('h a'))
+    }
+    counter += 1
+    if (counter === 3) {
+      counter = 0
+    }
+  }
+  const dateRangeLength = dateRange.length
+
+  const newArrayData = new Array(dateRangeLength)
+  for (let i = 0; i < newArrayData.length; i += 1) {
+    newArrayData[i] = randomNumber(40, 90)
+  }
+
   return (
     <>
       <TopAppbar title={currentStudySpace?.name ?? ''} />
-      <DefaultPage>
-        <Image
-          style={styles.image}
-          source={{
-            uri: currentStudySpace?.images?.[0] ?? '',
-          }}
-        />
-        <Text style={styles.occupancyLevelText}>Occupancy Level:</Text>
-        <LineChart
-          data={{
-            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-            datasets: [
-              {
-                data: [
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                  Math.random() * 100,
-                ],
+      <DefaultPage styles={{}}>
+        <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+          <Image
+            style={styles.image}
+            source={{
+              uri: currentStudySpace?.images?.[0] ?? '',
+            }}
+          />
+          <Text style={styles.occupancyLevelText}>Occupancy Level (Past 24 hour):</Text>
+          <LineChart
+            data={{
+              labels: dateRange,
+              datasets: [
+                {
+                  data: newArrayData,
+                },
+              ],
+            }}
+            width={screenWidth - PADDING_SPACE} // from react-native
+            height={220}
+            yAxisSuffix=""
+            yAxisInterval={1} // optional, defaults to 1
+            chartConfig={{
+              backgroundColor: 'black',
+              backgroundGradientFrom: 'rgba(255, 255, 255, 0.4)',
+              backgroundGradientTo: 'rgba(255, 255, 255, 0.4)',
+              decimalPlaces: 0, // optional, defaults to 2dp
+              color: (opacity = 1) => `rgba(255, 38, 136, ${opacity})`,
+              labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+              style: {
+                borderRadius: 16,
               },
-            ],
-          }}
-          width={Dimensions.get('window').width} // from react-native
-          height={220}
-          yAxisLabel="$"
-          yAxisSuffix="k"
-          yAxisInterval={1} // optional, defaults to 1
-          chartConfig={{
-            backgroundColor: '#e26a00',
-            backgroundGradientFrom: '#fb8c00',
-            backgroundGradientTo: '#ffa726',
-            decimalPlaces: 2, // optional, defaults to 2dp
-            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            style: {
+              propsForDots: {
+                r: '6',
+                strokeWidth: '2',
+              },
+            }}
+            bezier
+            style={{
+              marginVertical: 8,
               borderRadius: 16,
-            },
-            propsForDots: {
-              r: '6',
-              strokeWidth: '2',
-              stroke: '#ffa726',
-            },
-          }}
-          bezier
-          style={{
-            marginVertical: 8,
-            borderRadius: 16,
-          }}
-        />
-        <Text style={styles.occupancyLevelText}>Noise Level:</Text>
-        <Button
-          mode="contained"
-          onPress={() => {
-            navigation.goBack()
-          }}
-        >
-          Go Back
-        </Button>
+            }}
+          />
+          <Text style={styles.occupancyLevelText}>Noise Level (Past 24 hour):</Text>
+          <LineChart
+            data={{
+              labels: dateRange,
+              datasets: [
+                {
+                  data: newArrayData,
+                },
+              ],
+            }}
+            width={screenWidth - PADDING_SPACE} // from react-native
+            height={220}
+            yAxisSuffix=" dBA"
+            yAxisInterval={1} // optional, defaults to 1
+            chartConfig={{
+              backgroundColor: 'black',
+              backgroundGradientFrom: 'rgba(255, 255, 255, 0.4)',
+              backgroundGradientTo: 'rgba(255, 255, 255, 0.4)',
+              decimalPlaces: 0, // optional, defaults to 2dp
+              color: (opacity = 1) => `rgba(255, 38, 136, ${opacity})`,
+              labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+              style: {
+                borderRadius: 16,
+                alignSelf: 'flex-start',
+              },
+              propsForDots: {
+                r: '6',
+                strokeWidth: '2',
+              },
+            }}
+            bezier
+            style={{
+              marginVertical: 8,
+              borderRadius: 16,
+            }}
+          />
+          <Button
+            mode="contained"
+            onPress={() => {
+              navigation.goBack()
+            }}
+          >
+            Go Back
+          </Button>
+        </ScrollView>
       </DefaultPage>
     </>
   )
