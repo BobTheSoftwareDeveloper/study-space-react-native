@@ -46,6 +46,7 @@ const LandingScreen = ({ navigation, route }: Props) => {
       axiosInstance.get('/')
       await login(email, password)
       alert('Login successful!')
+      navigation.navigate('HomePage')
     } catch (err) {
       const error = err as Error
       alert(`Login failed: ${error.message}`)

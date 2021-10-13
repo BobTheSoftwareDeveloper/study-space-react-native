@@ -1,13 +1,14 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React, { useState, useEffect } from 'react'
 import { Alert, StyleSheet, ScrollView, View } from 'react-native'
-import { Headline } from 'react-native-paper'
+import { Button, Headline } from 'react-native-paper'
 import { RootStackParamList } from '../navigation/navigator'
 import DefaultPage from '../components/DefaultPage'
 import TopAppBar from '../components/TopAppBar'
 import { StudySpaceType } from '../types/apiReponse'
 import CardItem from '../components/CardItem'
 import { getFavouriteStudySpaces } from '../view-model/studySpace'
+import { signOut } from '../view-model/userAuth'
 
 const styles = StyleSheet.create({
   content: {
@@ -35,6 +36,14 @@ const styles = StyleSheet.create({
   mainView: {
     backgroundColor: '#FEE1D8',
     flex: 1,
+  },
+  signOutButton: {
+    marginTop: 20,
+    marginBottom: 20,
+    width: '50%',
+    alignSelf: 'center',
+    flex: 1,
+    color: 'white',
   },
 })
 
@@ -66,7 +75,7 @@ const ProfileScreen: React.FC<Props> = ({ navigation }) => {
           alignItems: 'flex-start',
           padding: 0,
           flexWrap: 'wrap',
-          flex: 1,
+          flex: 11,
         }}
       >
         <ScrollView contentContainerStyle={styles.content}>
@@ -75,6 +84,9 @@ const ProfileScreen: React.FC<Props> = ({ navigation }) => {
           ))}
         </ScrollView>
       </DefaultPage>
+      <Button mode="contained" style={styles.signOutButton} onPress={() => signOut()} color="#ed9693">
+        Sign Out
+      </Button>
     </View>
   )
 }

@@ -10,4 +10,8 @@ const signUp = async (name: string, email: string, password: string): Promise<fi
   return signUpResult
 }
 
-export { login, signUp }
+const signOut = async () => {
+  await firebaseAuth.signOut()
+}
+
+export { login, signUp, signOut }
