@@ -72,7 +72,7 @@ const StudySpacePage: React.FC<StudySpacePageProps> = ({ navigation }) => {
 
   return (
     <>
-      <TopAppbar title={currentStudySpace?.name ?? ''} />
+      <TopAppbar title={currentStudySpace?.name ?? ''} navigation={navigation} showBackButton />
       <DefaultPage styles={{}}>
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
           <Image
@@ -152,14 +152,6 @@ const StudySpacePage: React.FC<StudySpacePageProps> = ({ navigation }) => {
               borderRadius: 16,
             }}
           />
-          <Button
-            mode="contained"
-            onPress={() => {
-              navigation.goBack()
-            }}
-          >
-            Go Back
-          </Button>
         </ScrollView>
       </DefaultPage>
     </>
