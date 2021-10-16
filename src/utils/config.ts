@@ -1,7 +1,7 @@
-import { API_URL } from '@env'
+import Constants from 'expo-constants'
 
 const config = {
-  API_URL,
+  API_URL: Constants.manifest?.extra?.API_URL ?? '',
 }
 
 export { config }
