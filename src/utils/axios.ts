@@ -10,7 +10,6 @@ instance.interceptors.request.use(
   async (requestConfig: AxiosRequestConfig) => {
     if (firebaseAuth.currentUser !== null) {
       const bearerToken = await firebaseAuth.currentUser.getIdToken()
-      console.log('bearerToken', bearerToken)
       // @ts-ignore Next line
       requestConfig.headers.authorization = `Bearer ${bearerToken}`
     }

@@ -11,12 +11,6 @@ const firebaseConfig = {
   measurementId: 'G-KB79NM8CT2',
 }
 
-/*
-Default account login:
-Email: bob@example.com
-Password: bob123test
-*/
-
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig)
 }
