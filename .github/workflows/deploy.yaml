@@ -1,0 +1,27 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+          cache: "npm"
+
+      - run: npm install
+      - run: npm run test
+        env:
+          API_URL: ${{ secrets.API_URL }}
+      - uses: expo/expo-github-action@v6
+        with:
+          expo-version: 4.x
+          packager: npm
+          token: ${{ secrets.EXPO_TOKEN }}
+      - run: expo publish
