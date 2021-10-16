@@ -65,9 +65,14 @@ const StudySpacePage: React.FC<StudySpacePageProps> = ({ navigation }) => {
   }
   const dateRangeLength = dateRange.length
 
-  const newArrayData = new Array(dateRangeLength)
-  for (let i = 0; i < newArrayData.length; i += 1) {
-    newArrayData[i] = randomNumber(40, 90)
+  const occupancyLevel = new Array(dateRangeLength)
+  for (let i = 0; i < occupancyLevel.length; i += 1) {
+    occupancyLevel[i] = randomNumber(10, 30)
+  }
+
+  const noiseLevel = new Array(dateRangeLength)
+  for (let i = 0; i < occupancyLevel.length; i += 1) {
+    noiseLevel[i] = randomNumber(40, 90)
   }
 
   return (
@@ -87,7 +92,7 @@ const StudySpacePage: React.FC<StudySpacePageProps> = ({ navigation }) => {
               labels: dateRange,
               datasets: [
                 {
-                  data: newArrayData,
+                  data: occupancyLevel,
                 },
               ],
             }}
@@ -122,7 +127,7 @@ const StudySpacePage: React.FC<StudySpacePageProps> = ({ navigation }) => {
               labels: dateRange,
               datasets: [
                 {
-                  data: newArrayData,
+                  data: noiseLevel,
                 },
               ],
             }}
