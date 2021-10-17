@@ -6,7 +6,6 @@ import { RootStackParamList } from '../navigation/navigator'
 import DefaultPage from '../components/DefaultPage'
 import DefaultTextInput from '../components/DefaultTextInput'
 import { login } from '../view-model/userAuth'
-import { axiosInstance } from '../utils/axios'
 
 const styles = StyleSheet.create({
   headerText: {
@@ -43,7 +42,6 @@ const LandingScreen = ({ navigation, route }: Props) => {
 
   const handleLogin = async () => {
     try {
-      axiosInstance.get('/')
       await login(email, password)
       alert('Login successful!')
       navigation.navigate('HomePage')
@@ -84,7 +82,7 @@ const LandingScreen = ({ navigation, route }: Props) => {
       <Paragraph
         style={styles.forgetPasswordText}
         onPress={() => {
-          alert('Forgot!')
+          navigation.navigate('ForgotPasswordPage')
         }}
       >
         Forgot Password

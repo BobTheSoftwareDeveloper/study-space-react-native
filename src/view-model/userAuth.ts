@@ -14,4 +14,8 @@ const signOut = async () => {
   await firebaseAuth.signOut()
 }
 
-export { login, signUp, signOut }
+const resetPassword = async (email: string): Promise<void> => {
+  await firebaseAuth.sendPasswordResetEmail(email)
+}
+
+export { login, signUp, signOut, resetPassword }

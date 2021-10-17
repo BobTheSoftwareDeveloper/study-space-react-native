@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   },
 })
 
-type Props = NativeStackScreenProps<RootStackParamList, 'LandingPage'>
+type Props = NativeStackScreenProps<RootStackParamList, 'SignUpPage'>
 
 const SignUpScreen = ({ navigation, route }: Props) => {
   const [showPassword, setShowPassword] = useState(false)

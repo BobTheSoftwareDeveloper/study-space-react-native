@@ -6,6 +6,7 @@ import LandingScreen from '../views/LandingScreen'
 import SignUpScreen from '../views/SignUpScreen'
 import BottomNavigation from '../components/BottomNavigation'
 import StudySpacePage from '../views/StudySpacePage'
+import ForgotPassword from '../views/ForgotPassword'
 import { AuthContext } from '../contexts/AuthContext'
 
 export type RootStackParamList = {
@@ -13,6 +14,7 @@ export type RootStackParamList = {
   HomePage: undefined
   SignUpPage: undefined
   StudySpacePage: undefined
+  ForgotPasswordPage: undefined
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -37,14 +39,13 @@ const Navigation = ({ colorScheme }: { colorScheme: ColorSchemeName }) => {
           <>
             <Stack.Screen name="LandingPage" component={LandingScreen} />
             <Stack.Screen name="SignUpPage" component={SignUpScreen} />
+            <Stack.Screen name="ForgotPasswordPage" component={ForgotPassword} />
             <Stack.Screen name="StudySpacePage" component={StudySpacePage} />
           </>
         ) : (
           <>
             <Stack.Screen name="HomePage" component={BottomNavigation} />
             <Stack.Screen name="LandingPage" component={LandingScreen} />
-            <Stack.Screen name="SignUpPage" component={SignUpScreen} />
-            <Stack.Screen name="StudySpacePage" component={StudySpacePage} />
           </>
         )}
       </Stack.Navigator>
