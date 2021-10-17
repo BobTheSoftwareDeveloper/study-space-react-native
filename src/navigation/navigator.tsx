@@ -40,12 +40,11 @@ const Navigation = ({ colorScheme }: { colorScheme: ColorSchemeName }) => {
             <Stack.Screen name="LandingPage" component={LandingScreen} />
             <Stack.Screen name="SignUpPage" component={SignUpScreen} />
             <Stack.Screen name="ForgotPasswordPage" component={ForgotPassword} />
-            <Stack.Screen name="StudySpacePage" component={StudySpacePage} />
           </>
         ) : (
           <>
             <Stack.Screen name="HomePage" component={BottomNavigation} />
-            <Stack.Screen name="LandingPage" component={LandingScreen} />
+            <Stack.Screen name="StudySpacePage" component={StudySpacePage} />
           </>
         )}
       </Stack.Navigator>
