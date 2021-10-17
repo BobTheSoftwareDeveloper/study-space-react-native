@@ -19,13 +19,17 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bob.studyspacereactnative",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/images/study-1024x1024.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.bob.studyspacereactnative",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./src/assets/images/study-1024x1024.png"
